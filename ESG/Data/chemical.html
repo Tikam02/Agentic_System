@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemical, Emissions & Electricity Compliance Report</title>
+    <style>
+        @media print {
+            body { margin: 0; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Calibri', sans-serif;
+            margin: 20px;
+            background-color: white;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .report-container {
+            max-width: 950px;
+            margin: 0 auto;
+            background-color: white;
+            border: 3px solid #c0392b;
+        }
+        
+        .report-header {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 50%, #f39c12 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header-icon {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 32px;
+        }
+        
+        .report-header h1 {
+            margin: 0 0 8px 0;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .report-header h2 {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+        
+        .compliance-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .badge {
+            background-color: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .facility-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .facility-item {
+            text-align: center;
+        }
+        
+        .facility-label {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .facility-value {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 15px 25px;
+            margin-bottom: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+        }
+        
+        .section-icon {
+            margin-right: 15px;
+            font-size: 22px;
+        }
+        
+        .chemical-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .chemical-card {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7cc 100%);
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .chemical-card.hazardous {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border-color: #d32f2f;
+        }
+        
+        .chemical-card.safe {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-color: #7b1fa2;
+        }
+        
+        .hazard-level {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .hazard-high {
+            background-color: #d32f2f;
+            color: white;
+        }
+        
+        .hazard-medium {
+            background-color: #f57c00;
+            color: white;
+        }
+        
+        .hazard-low {
+            background-color: #388e3c;
+            color: white;
+        }
+        
+        .chemical-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .chemical-details {
+            font-size: 12px;
+            color: #555;
+        }
+        
+        .emissions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+        }
+        
+        .emissions-table th,
+        .emissions-table td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .emissions-table th {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        
+        .emissions-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .outlet-info {
+            background-color: #fff3e0;
+            border: 2px solid #ff9800;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .electricity-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border: 2px solid #4caf50;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .metric-card.renewable {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-color: #2196f3;
+        }
+        
+        .metric-card.efficiency {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-color: #9c27b0;
+        }
+        
+        .metric-title {
+            font-size: 11px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        
+        .metric-value {
+            font-size: 26px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .metric-unit {
+            font-size: 11px;
+            color: #7f8c8d;
+        }
+        
+        .compliance-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .status-compliant {
+            background-color: #d5f4e6;
+            color: #27ae60;
+            border: 1px solid #27ae60;
+        }
+        
+        .status-monitoring {
+            background-color: #fef9e7;
+            color: #f39c12;
+            border: 1px solid #f39c12;
+        }
+        
+        .status-critical {
+            background-color: #fadbd8;
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+        
+        .safety-checklist {
+            background-color: #f8f9fa;
+            border-left: 5px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px;
+            background-color: white;
+            border-radius: 5px;
+        }
+        
+        .check-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .check-pass {
+            background-color: #27ae60;
+            color: white;
+        }
+        
+        .check-fail {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .check-pending {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .signature-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #bdc3c7;
+        }
+        
+        .signature-box {
+            text-align: center;
+        }
+        
+        .signature-line {
+            border-bottom: 2px solid #2c3e50;
+            width: 150px;
+            margin: 15px auto 8px auto;
+            height: 25px;
+        }
+        
+        .print-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        
+        .print-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="text-align: center; margin-bottom: 20px;">
+        <button class="print-btn" onclick="window.print()">🖨️ Print as PDF</button>
+        <button class="print-btn" onclick="downloadAsPDF()" style="background-color: #28a745;">💾 Save as PDF</button>
+    </div>
+
+    <div class="report-container">
+        <div class="report-header">
+            <div class="header-icon">⚗️</div>
+            <h1>Chemical, Emissions &amp; Electricity Compliance Report</h1>
+            <h2>Industrial Safety &amp; Environmental Impact Assessment</h2>
+            <div class="compliance-badges">
+                <div class="badge">OSHA Certified</div>
+                <div class="badge">EPA Compliant</div>
+                <div class="badge">ISO 14001</div>
+                <div class="badge">Energy Star</div>
+            </div>
+        </div>
+
+        <div class="facility-header">
+            <div class="facility-item">
+                <div class="facility-label">Report ID</div>
+                <div class="facility-value">CHM-ELE-2023-Q4-008</div>
+            </div>
+            <div class="facility-item">
+                <div class="facility-label">Assessment Date</div>
+                <div class="facility-value">December 31, 2023</div>
+            </div>
+            <div class="facility-item">
+                <div class="facility-label">Next Review</div>
+                <div class="facility-value">March 31, 2024</div>
+            </div>
+            <div class="facility-item">
+                <div class="facility-label">Compliance Officer</div>
+                <div class="facility-value">Dr. Sarah Johnson</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-icon">🧪</span>
+                    CHEMICAL INVENTORY &amp; SAFETY MANAGEMENT
+                </div>
+                
+                <div class="chemical-grid">
+                    <div class="chemical-card hazardous">
+                        <div class="hazard-level hazard-high">High Risk</div>
+                        <div class="chemical-name">Hydrochloric Acid (HCl)</div>
+                        <div class="chemical-details">
+                            <strong>Volume:</strong> 2,500 L<br>
+                            <strong>Purpose:</strong> PCB Etching Process<br>
+                            <strong>Storage:</strong> Ventilated Chemical Cabinet<br>
+                            <strong>Classification:</strong> Corrosive, Class 8
+                        </div>
+                    </div>
+                    <div class="chemical-card hazardous">
+                        <div class="hazard-level hazard-high">High Risk</div>
+                        <div class="chemical-name">Isopropyl Alcohol (IPA)</div>
+                        <div class="chemical-details">
+                            <strong>Volume:</strong> 1,800 L<br>
+                            <strong>Purpose:</strong> Component Cleaning<br>
+                            <strong>Storage:</strong> Fireproof Storage Room<br>
+                            <strong>Classification:</strong> Flammable, Class 3
+                        </div>
+                    </div>
+                    <div class="chemical-card safe">
+                        <div class="hazard-level hazard-medium">Medium Risk</div>
+                        <div class="chemical-name">Acetone</div>
+                        <div class="chemical-details">
+                            <strong>Volume:</strong> 950 L<br>
+                            <strong>Purpose:</strong> Degreasing Operations<br>
+                            <strong>Storage:</strong> Temperature-Controlled Facility<br>
+                            <strong>Classification:</strong> Flammable, Irritant
+                        </div>
+                    </div>
+                    <div class="chemical-card safe">
+                        <div class="hazard-level hazard-low">Low Risk</div>
+                        <div class="chemical-name">Distilled Water</div>
+                        <div class="chemical-details">
+                            <strong>Volume:</strong> 15,000 L<br>
+                            <strong>Purpose:</strong> Cooling &amp; Cleaning<br>
+                            <strong>Storage:</strong> Standard Tanks<br>
+                            <strong>Classification:</strong> Non-Hazardous
+                        </div>
+                    </div>
+                </div>
+
+                <div class="safety-checklist">
+                    <h4 style="margin-top: 0; color: #2c3e50;">🛡️ Chemical Safety Compliance Status</h4>
+                    <div class="checklist-item">
+                        <div class="check-icon check-pass">✓</div>
+                        <div><strong>Chemical Safety Data Sheets (SDS)</strong> - All chemicals have current SDS on file</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="check-icon check-pass">✓</div>
+                        <div><strong>Storage Compliance</strong> - All chemicals stored per manufacturer guidelines</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="check-icon check-pass">✓</div>
+                        <div><strong>Employee Training</strong> - 100% completion rate for chemical handling certification</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="check-icon check-pending">!</div>
+                        <div><strong>Waste Disposal</strong> - Q1 2024 contract renewal pending with certified disposal company</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-icon">💨</span>
+                    FUME OUTLETS &amp; AIR EMISSIONS MONITORING
+                </div>
+                
+                <div class="outlet-info">
+                    <h4 style="margin-top: 0; color: #e65100;">🏭 Fume Outlet Infrastructure</h4>
+                    <p><strong>Total Fume Outlets:</strong> 12 Active Units | <strong>Stack Height:</strong> 25 meters | <strong>Last Maintenance:</strong> November 2023</p>
+                </div>
+
+                <table class="emissions-table">
+                    <thead>
+                        <tr>
+                            <th>Outlet ID</th>
+                            <th>Location</th>
+                            <th>Emission Type</th>
+                            <th>Volume (m³/hr)</th>
+                            <th>Control System</th>
+                            <th>Compliance Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>FO-001</strong></td>
+                            <td>Production Floor A</td>
+                            <td>Chemical Vapors</td>
+                            <td>2,400</td>
+                            <td>Scrubber System</td>
+                            <td><span class="compliance-status status-compliant">Compliant</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>FO-002</strong></td>
+                            <td>PCB Manufacturing</td>
+                            <td>Acid Fumes</td>
+                            <td>1,800</td>
+                            <td>Activated Carbon Filter</td>
+                            <td><span class="compliance-status status-compliant">Compliant</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>FO-003</strong></td>
+                            <td>Cleaning Station</td>
+                            <td>Solvent Vapors</td>
+                            <td>3,200</td>
+                            <td>Thermal Oxidizer</td>
+                            <td><span class="compliance-status status-monitoring">Monitoring</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>FO-004</strong></td>
+                            <td>Quality Control Lab</td>
+                            <td>Mixed Emissions</td>
+                            <td>950</td>
+                            <td>HEPA Filtration</td>
+                            <td><span class="compliance-status status-compliant">Compliant</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="background-color: #fff3e0; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="margin-top: 0; color: #e65100;">📊 Annual Air Emissions Summary</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div><strong>Total Air Emissions:</strong> 145.7 tons/year</div>
+                        <div><strong>Particulate Matter (PM2.5):</strong> 12.3 tons/year</div>
+                        <div><strong>Volatile Organic Compounds:</strong> 85.2 tons/year</div>
+                        <div><strong>NOx Emissions:</strong> 23.8 tons/year</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    <span class="section-icon">⚡</span>
+                    ELECTRICITY CONSUMPTION &amp; ENERGY MANAGEMENT
+                </div>
+                
+                <div class="electricity-metrics">
+                    <div class="metric-card">
+                        <div class="metric-title">Annual Consumption</div>
+                        <div class="metric-value">8,750,000</div>
+                        <div class="metric-unit">kWh/Year</div>
+                    </div>
+                    <div class="metric-card renewable">
+                        <div class="metric-title">Renewable Energy</div>
+                        <div class="metric-value">35</div>
+                        <div class="metric-unit">Percentage (%)</div>
+                    </div>
+                    <div class="metric-card efficiency">
+                        <div class="metric-title">Peak Demand</div>
+                        <div class="metric-value">1,250</div>
+                        <div class="metric-unit">kW</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Grid Independence</div>
+                        <div class="metric-value">15</div>
+                        <div class="metric-unit">Percentage (%)</div>
+                    </div>
+                </div>
+
+                <table class="emissions-table">
+                    <thead>
+                        <tr>
+                            <th>Energy Source</th>
+                            <th>Consumption (kWh)</th>
+                            <th>Percentage of Total</th>
+                            <th>Cost ($)</th>
+                            <th>Carbon Impact (tCO₂)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Grid Electricity (Fossil)</strong></td>
+                            <td>5,687,500</td>
+                            <td>65%</td>
+                            <td>$683,250</td>
+                            <td>2,844</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Solar (On-site)</strong></td>
+                            <td>1,750,000</td>
+                            <td>20%</td>
+                            <td>$0 (Owned)</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wind (PPA Contract)</strong></td>
+                            <td>1,312,500</td>
+                            <td>15%</td>
+                            <td>$118,125</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="safety-checklist">
+                    <h4 style="margin-top: 0; color: #2c3e50;">⚡ Energy Efficiency Initiatives</h4>
+                    <div class="checklist-item">
+                        <div class="check-icon check-pass">✓</div>
+                        <div><strong>LED Lighting Conversion</strong> - 100% facility conversion completed Q3 2023</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="check-icon check-pass">✓</div>
+                        <div><strong>Smart HVAC System</strong> - AI-controlled climate system operational</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="check-icon check-pass">✓</div>
+                        <div><strong>Energy Star Certification</strong> - Facility certified for top 25% energy performance</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="check-icon check-pending">!</div>
+                        <div><strong>Battery Storage Expansion</strong> - 500kWh system installation planned Q2 2024</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <strong>Chemical Safety Officer</strong>
+                    <div class="signature-line"></div>
+                    <div>Dr. Michael Chen, P.E.</div>
+                    <div>December 31, 2023</div>
+                </div>
+                <div class="signature-box">
+                    <strong>Environmental Engineer</strong>
+                    <div class="signature-line"></div>
+                    <div>Lisa Rodriguez, EIT</div>
+                    <div>December 31, 2023</div>
+                </div>
+                <div class="signature-box">
+                    <strong>Energy Manager</strong>
+                    <div class="signature-line"></div>
+                    <div>James Park, CEM</div>
+                    <div>December 31, 2023</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>CONFIDENTIAL INDUSTRIAL COMPLIANCE REPORT</strong></p>
+            <p>Chemical, Emissions & Electricity Assessment | GreenTech Solutions Ltd</p>
+            <p>This document contains sensitive operational and environmental data. Distribution restricted to authorized personnel and regulatory agencies.</p>
+            <p><strong>Document Classification:</strong> Internal Use Only | <strong>Version:</strong> 4.1 | <strong>Next Review:</strong> Q1 2024</p>
+        </div>
+    </div>
+
+    <script>
+        function downloadAsPDF() {
+            const buttons = document.querySelectorAll('.no-print');
+            buttons.forEach(btn => btn.style.display = 'none');
+            
+            setTimeout(() => {
+                window.print();
+                setTimeout(() => {
+                    buttons.forEach(btn => btn.style.display = 'block');
+                }, 1000);
+            }, 100);
+        }
+    </script>
+</body>
+</html>

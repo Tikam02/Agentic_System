@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empty ESG Input Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        .sheet-title {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px;
+            margin: 20px 0 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 12px;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .section-header {
+            background-color: #e8f4fd;
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .template-row {
+            background-color: #fafafa;
+            font-style: italic;
+            color: #666;
+        }
+        .empty-row {
+            background-color: #fff;
+            height: 35px;
+        }
+        .download-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        .download-btn:hover {
+            background-color: #c0392b;
+        }
+        .instructions {
+            background-color: #fff9c4;
+            border: 1px solid #f1c40f;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .category-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+        .legend-item {
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Empty ESG Input Template</h1>
+            <p>Blank template for AI agentic system data entry and form filling simulation</p>
+        </div>
+
+        <div class="instructions">
+            <strong>🎯 Template Purpose:</strong> This is an empty template file designed for AI agents to practice data entry, form filling, and structured data input. All rows are blank and ready for automated population.
+        </div>
+
+        <div class="category-legend">
+            <div class="legend-item section-header">User Details (8 cols)</div>
+            <div class="legend-item" style="background-color: #d5f4e6;">ESG Data (8 cols)</div>
+            <div class="legend-item" style="background-color: #e3f2fd;">Water Data (6 cols)</div>
+            <div class="legend-item" style="background-color: #fff3e0;">Chemical Data (5 cols)</div>
+            <div class="legend-item" style="background-color: #fce4ec;">Emissions Data (5 cols)</div>
+            <div class="legend-item" style="background-color: #f3e5f5;">Electricity Data (5 cols)</div>
+        </div>
+
+        <div class="sheet-title">📑 Empty Template Sheet: ESGInputTemplate (37 columns)</div>
+        
+        <table id="esgTable">
+            <thead>
+                <tr>
+                    <!-- User Details -->
+                    <th class="section-header">Full Name</th>
+                    <th class="section-header">Email Address</th>
+                    <th class="section-header">Phone Number</th>
+                    <th class="section-header">Company Name</th>
+                    <th class="section-header">Role / Designation</th>
+                    <th class="section-header">Country</th>
+                    <th class="section-header">Industry</th>
+                    <th class="section-header">Registration Date</th>
+                    <!-- ESG Data -->
+                    <th style="background-color: #d5f4e6;">ESG Risk Score (0-100)</th>
+                    <th style="background-color: #d5f4e6;">Environmental Score</th>
+                    <th style="background-color: #d5f4e6;">Social Score</th>
+                    <th style="background-color: #d5f4e6;">Governance Score</th>
+                    <th style="background-color: #d5f4e6;">Carbon Emissions (tons/year)</th>
+                    <th style="background-color: #d5f4e6;">Net Zero Target Year</th>
+                    <th style="background-color: #d5f4e6;">ESG Disclosure Status</th>
+                    <th style="background-color: #d5f4e6;">ESG Auditor</th>
+                    <!-- Water Data -->
+                    <th style="background-color: #e3f2fd;">Annual Water Usage (litres)</th>
+                    <th style="background-color: #e3f2fd;">Wastewater Generated (litres)</th>
+                    <th style="background-color: #e3f2fd;">Water Recycled (%)</th>
+                    <th style="background-color: #e3f2fd;">Region Water Scarcity Index</th>
+                    <th style="background-color: #e3f2fd;">Compliance with Local Water Laws</th>
+                    <th style="background-color: #e3f2fd;">Rainwater Harvesting</th>
+                    <!-- Chemical Data -->
+                    <th style="background-color: #fff3e0;">Chemicals Used</th>
+                    <th style="background-color: #fff3e0;">Chemical Storage Volume (L)</th>
+                    <th style="background-color: #fff3e0;">Hazardous Chemical Classification</th>
+                    <th style="background-color: #fff3e0;">Chemical Waste Generated (kg/year)</th>
+                    <th style="background-color: #fff3e0;">Chemical Safety Compliance</th>
+                    <!-- Emissions Data -->
+                    <th style="background-color: #fce4ec;">Fume Outlets Count</th>
+                    <th style="background-color: #fce4ec;">Air Emissions (tons/year)</th>
+                    <th style="background-color: #fce4ec;">Particulate Matter Emissions (tons/year)</th>
+                    <th style="background-color: #fce4ec;">Emission Control Systems</th>
+                    <th style="background-color: #fce4ec;">Air Quality Compliance</th>
+                    <!-- Electricity Data -->
+                    <th style="background-color: #f3e5f5;">Annual Electricity Usage (kWh)</th>
+                    <th style="background-color: #f3e5f5;">Renewable Energy Percentage (%)</th>
+                    <th style="background-color: #f3e5f5;">Peak Demand (kW)</th>
+                    <th style="background-color: #f3e5f5;">Energy Efficiency Rating</th>
+                    <th style="background-color: #f3e5f5;">Grid Independence Level (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Template row showing expected data types -->
+                <tr class="template-row">
+                    <td>[First Last Name]</td>
+                    <td>[email@company.com]</td>
+                    <td>[+1-xxx-xxx-xxxx]</td>
+                    <td>[Company Name Ltd]</td>
+                    <td>[Job Title]</td>
+                    <td>[Country]</td>
+                    <td>[Industry Sector]</td>
+                    <td>[YYYY-MM-DD]</td>
+                    <td>[0-100]</td>
+                    <td>[0-100]</td>
+                    <td>[0-100]</td>
+                    <td>[0-100]</td>
+                    <td>[Number]</td>
+                    <td>[YYYY]</td>
+                    <td>[Yes/No]</td>
+                    <td>[Auditor Name]</td>
+                    <td>[Number]</td>
+                    <td>[Number]</td>
+                    <td>[0-100]</td>
+                    <td>[1.0-5.0]</td>
+                    <td>[Yes/No]</td>
+                    <td>[Yes/No]</td>
+                    <td>[Chemical Names]</td>
+                    <td>[Number]</td>
+                    <td>[Risk Level]</td>
+                    <td>[Number]</td>
+                    <td>[Yes/No]</td>
+                    <td>[Number]</td>
+                    <td>[Number]</td>
+                    <td>[Number]</td>
+                    <td>[Yes/No]</td>
+                    <td>[Yes/No]</td>
+                    <td>[Number]</td>
+                    <td>[0-100]</td>
+                    <td>[Number]</td>
+                    <td>[Rating]</td>
+                    <td>[0-100]</td>
+                </tr>
+                <!-- Empty rows for data entry -->
+                <tr class="empty-row">
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr class="empty-row">
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr class="empty-row">
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr class="empty-row">
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr class="empty-row">
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr class="empty-row">
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr class="empty-row">
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr class="empty-row">
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr class="empty-row">
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr class="empty-row">
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td><td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="text-align: center;">
+            <button class="download-btn" onclick="downloadAsCSV()">💾 Download Empty Template (CSV)</button>
+            <button class="download-btn" onclick="downloadAsExcel()">📊 Download Empty Template (Excel)</button>
+        </div>
+
+        <div style="margin-top: 30px; padding: 15px; background-color: #e8f5e8; border-radius: 5px;">
+            <h3 style="margin-top: 0; color: #2c3e50;">🤖 AI Agent Usage Instructions:</h3>
+            <ul style="color: #555; font-size: 14px;">
+                <li><strong>Form Filling Practice:</strong> Use this template to train AI agents on structured data entry</li>
+                <li><strong>Data Validation:</strong> Template row shows expected data types and formats</li>
+                <li><strong>Batch Processing:</strong> Multiple empty rows allow for bulk data import testing</li>
+                <li><strong>Cross-Platform Testing:</strong> Compatible with Excel, Google Sheets, and CSV parsers</li>
+                <li><strong>Field Mapping:</strong> Color-coded sections help with automated field recognition</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function downloadAsCSV() {
+            const table = document.getElementById('esgTable');
+            const rows = table.querySelectorAll('tr');
+            let csvContent = '';
+            
+            // Get headers
+            const headerRow = rows[0];
+            const headerCells = headerRow.querySelectorAll('th');
+            const headerData = Array.from(headerCells).map(cell => {
+                let text = cell.textContent.trim();
+                if (text.includes(',') || text.includes('"') || text.includes('\n')) {
+                    text = '"' + text.replace(/"/g, '""') + '"';
+                }
+                return text;
+            });
+            csvContent += headerData.join(',') + '\n';
+            
+            // Add 10 empty rows
+            const numColumns = headerData.length;
+            for (let i = 0; i < 10; i++) {
+                csvContent += Array(numColumns).fill('').join(',') + '\n';
+            }
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'esg_empty_template.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function downloadAsExcel() {
+            const table = document.getElementById('esgTable');
+            const headerRow = table.querySelector('thead tr');
+            
+            // Create Excel-compatible HTML with just headers and empty rows
+            let tableContent = '<tr>' + headerRow.innerHTML + '</tr>';
+            
+            // Add 10 empty rows
+            const numColumns = headerRow.querySelectorAll('th').length;
+            for (let i = 0; i < 10; i++) {
+                tableContent += '<tr>' + Array(numColumns).fill('<td></td>').join('') + '</tr>';
+            }
+            
+            const excelContent = `
+                <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+                <head>
+                    <meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">
+                    <meta name="ProgId" content="Excel.Sheet">
+                    <meta name="Generator" content="Microsoft Excel 15">
+                </head>
+                <body>
+                    <table border="1">
+                        ${tableContent}
+                    </table>
+                </body>
+                </html>
+            `;
+            
+            const blob = new Blob([excelContent], { type: 'application/vnd.ms-excel' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'esg_empty_template.xls';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

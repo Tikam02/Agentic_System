@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG Agentic Input Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        .sheet-title {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            margin: 20px 0 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 12px;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .section-header {
+            background-color: #e8f4fd;
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .download-btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        .download-btn:hover {
+            background-color: #219a52;
+        }
+        .instructions {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 ESG Agentic Input Data System</h1>
+            <p>Structured data for AI form filling, parsing, and decision-making simulation</p>
+        </div>
+
+        <div class="instructions">
+            <strong>📋 Instructions:</strong> This table represents the Excel file structure. Use the download button to get the CSV format, which can be opened in Excel and saved as .xlsx format.
+        </div>
+
+        <div class="sheet-title">📑 Sheet: UserESGWaterData</div>
+        
+        <table id="esgTable">
+            <thead>
+                <tr>
+                    <!-- User Details -->
+                    <th class="section-header">Full Name</th>
+                    <th class="section-header">Email Address</th>
+                    <th class="section-header">Phone Number</th>
+                    <th class="section-header">Company Name</th>
+                    <th class="section-header">Role / Designation</th>
+                    <th class="section-header">Country</th>
+                    <th class="section-header">Industry</th>
+                    <th class="section-header">Registration Date</th>
+                    <!-- ESG Data -->
+                    <th style="background-color: #d5f4e6;">ESG Risk Score (0-100)</th>
+                    <th style="background-color: #d5f4e6;">Environmental Score</th>
+                    <th style="background-color: #d5f4e6;">Social Score</th>
+                    <th style="background-color: #d5f4e6;">Governance Score</th>
+                    <th style="background-color: #d5f4e6;">Carbon Emissions (tons/year)</th>
+                    <th style="background-color: #d5f4e6;">Net Zero Target Year</th>
+                    <th style="background-color: #d5f4e6;">ESG Disclosure Status</th>
+                    <th style="background-color: #d5f4e6;">ESG Auditor</th>
+                    <!-- Water Data -->
+                    <th style="background-color: #e3f2fd;">Annual Water Usage (litres)</th>
+                    <th style="background-color: #e3f2fd;">Wastewater Generated (litres)</th>
+                    <th style="background-color: #e3f2fd;">Water Recycled (%)</th>
+                    <th style="background-color: #e3f2fd;">Region Water Scarcity Index</th>
+                    <th style="background-color: #e3f2fd;">Compliance with Local Water Laws</th>
+                    <th style="background-color: #e3f2fd;">Rainwater Harvesting</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sarah Johnson</td>
+                    <td>sarah.johnson@greentech.com</td>
+                    <td>+1-555-0123</td>
+                    <td>GreenTech Solutions Ltd</td>
+                    <td>Chief Sustainability Officer</td>
+                    <td>United States</td>
+                    <td>Technology</td>
+                    <td>2023-03-15</td>
+                    <td>25</td>
+                    <td>78</td>
+                    <td>82</td>
+                    <td>85</td>
+                    <td>1250</td>
+                    <td>2030</td>
+                    <td>Yes</td>
+                    <td>KPMG</td>
+                    <td>45000000</td>
+                    <td>38250000</td>
+                    <td>65</td>
+                    <td>2.3</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Miguel Rodriguez</td>
+                    <td>m.rodriguez@steelworks.mx</td>
+                    <td>+52-55-1234-5678</td>
+                    <td>SteelWorks Manufacturing</td>
+                    <td>Environmental Manager</td>
+                    <td>Mexico</td>
+                    <td>Manufacturing</td>
+                    <td>2023-08-22</td>
+                    <td>67</td>
+                    <td>45</td>
+                    <td>58</td>
+                    <td>72</td>
+                    <td>8750</td>
+                    <td>2035</td>
+                    <td>No</td>
+                    <td>Deloitte</td>
+                    <td>125000000</td>
+                    <td>112500000</td>
+                    <td>25</td>
+                    <td>4.1</td>
+                    <td>Yes</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Priya Sharma</td>
+                    <td>priya.sharma@textileindia.in</td>
+                    <td>+91-9876543210</td>
+                    <td>India Textile Enterprises</td>
+                    <td>ESG Compliance Director</td>
+                    <td>India</td>
+                    <td>Textile</td>
+                    <td>2023-11-08</td>
+                    <td>52</td>
+                    <td>62</td>
+                    <td>68</td>
+                    <td>55</td>
+                    <td>3450</td>
+                    <td>2032</td>
+                    <td>Yes</td>
+                    <td>PwC</td>
+                    <td>89000000</td>
+                    <td>76650000</td>
+                    <td>42</td>
+                    <td>3.8</td>
+                    <td>No</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Lars Andersen</td>
+                    <td>lars.andersen@nordicenergy.no</td>
+                    <td>+47-22-123456</td>
+                    <td>Nordic Energy Solutions</td>
+                    <td>Head of Sustainability</td>
+                    <td>Norway</td>
+                    <td>Energy</td>
+                    <td>2023-06-03</td>
+                    <td>18</td>
+                    <td>88</td>
+                    <td>91</td>
+                    <td>94</td>
+                    <td>520</td>
+                    <td>2028</td>
+                    <td>Yes</td>
+                    <td>EY</td>
+                    <td>23000000</td>
+                    <td>18400000</td>
+                    <td>85</td>
+                    <td>1.2</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Chen Wei</td>
+                    <td>chen.wei@globalchem.cn</td>
+                    <td>+86-10-8765-4321</td>
+                    <td>Global Chemical Industries</td>
+                    <td>Vice President ESG</td>
+                    <td>China</td>
+                    <td>Chemical</td>
+                    <td>2023-09-14</td>
+                    <td>74</td>
+                    <td>38</td>
+                    <td>42</td>
+                    <td>65</td>
+                    <td>12500</td>
+                    <td>2040</td>
+                    <td>No</td>
+                    <td>Grant Thornton</td>
+                    <td>198000000</td>
+                    <td>185220000</td>
+                    <td>15</td>
+                    <td>4.5</td>
+                    <td>Yes</td>
+                    <td>No</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="text-align: center;">
+            <button class="download-btn" onclick="downloadAsCSV()">💾 Download as CSV</button>
+            <button class="download-btn" onclick="downloadAsExcel()">📊 Download as Excel Format</button>
+        </div>
+    </div>
+
+    <script>
+        function downloadAsCSV() {
+            const table = document.getElementById('esgTable');
+            const rows = table.querySelectorAll('tr');
+            let csvContent = '';
+            
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('th, td');
+                const rowData = Array.from(cells).map(cell => {
+                    let text = cell.textContent.trim();
+                    // Escape quotes and wrap in quotes if contains comma
+                    if (text.includes(',') || text.includes('"') || text.includes('\n')) {
+                        text = '"' + text.replace(/"/g, '""') + '"';
+                    }
+                    return text;
+                });
+                csvContent += rowData.join(',') + '\n';
+            });
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'esg_agentic_input.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function downloadAsExcel() {
+            // Create Excel-compatible HTML
+            const table = document.getElementById('esgTable');
+            const excelContent = `
+                <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+                <head>
+                    <meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">
+                    <meta name="ProgId" content="Excel.Sheet">
+                    <meta name="Generator" content="Microsoft Excel 15">
+                </head>
+                <body>
+                    <table border="1">
+                        ${table.innerHTML}
+                    </table>
+                </body>
+                </html>
+            `;
+            
+            const blob = new Blob([excelContent], { type: 'application/vnd.ms-excel' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'esg_agentic_input.xls';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

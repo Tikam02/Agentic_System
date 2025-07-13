@@ -1,0 +1,58 @@
+
+                <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+                <head>
+                    <meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">
+                    <meta name="ProgId" content="Excel.Sheet">
+                    <meta name="Generator" content="Microsoft Excel 15">
+                </head>
+                <body>
+                    <table border="1">
+                        <tr>
+                    <!-- User Details -->
+                    <th class="section-header">Full Name</th>
+                    <th class="section-header">Email Address</th>
+                    <th class="section-header">Phone Number</th>
+                    <th class="section-header">Company Name</th>
+                    <th class="section-header">Role / Designation</th>
+                    <th class="section-header">Country</th>
+                    <th class="section-header">Industry</th>
+                    <th class="section-header">Registration Date</th>
+                    <!-- ESG Data -->
+                    <th style="background-color: #d5f4e6;">ESG Risk Score (0-100)</th>
+                    <th style="background-color: #d5f4e6;">Environmental Score</th>
+                    <th style="background-color: #d5f4e6;">Social Score</th>
+                    <th style="background-color: #d5f4e6;">Governance Score</th>
+                    <th style="background-color: #d5f4e6;">Carbon Emissions (tons/year)</th>
+                    <th style="background-color: #d5f4e6;">Net Zero Target Year</th>
+                    <th style="background-color: #d5f4e6;">ESG Disclosure Status</th>
+                    <th style="background-color: #d5f4e6;">ESG Auditor</th>
+                    <!-- Water Data -->
+                    <th style="background-color: #e3f2fd;">Annual Water Usage (litres)</th>
+                    <th style="background-color: #e3f2fd;">Wastewater Generated (litres)</th>
+                    <th style="background-color: #e3f2fd;">Water Recycled (%)</th>
+                    <th style="background-color: #e3f2fd;">Region Water Scarcity Index</th>
+                    <th style="background-color: #e3f2fd;">Compliance with Local Water Laws</th>
+                    <th style="background-color: #e3f2fd;">Rainwater Harvesting</th>
+                    <!-- Chemical Data -->
+                    <th style="background-color: #fff3e0;">Chemicals Used</th>
+                    <th style="background-color: #fff3e0;">Chemical Storage Volume (L)</th>
+                    <th style="background-color: #fff3e0;">Hazardous Chemical Classification</th>
+                    <th style="background-color: #fff3e0;">Chemical Waste Generated (kg/year)</th>
+                    <th style="background-color: #fff3e0;">Chemical Safety Compliance</th>
+                    <!-- Emissions Data -->
+                    <th style="background-color: #fce4ec;">Fume Outlets Count</th>
+                    <th style="background-color: #fce4ec;">Air Emissions (tons/year)</th>
+                    <th style="background-color: #fce4ec;">Particulate Matter Emissions (tons/year)</th>
+                    <th style="background-color: #fce4ec;">Emission Control Systems</th>
+                    <th style="background-color: #fce4ec;">Air Quality Compliance</th>
+                    <!-- Electricity Data -->
+                    <th style="background-color: #f3e5f5;">Annual Electricity Usage (kWh)</th>
+                    <th style="background-color: #f3e5f5;">Renewable Energy Percentage (%)</th>
+                    <th style="background-color: #f3e5f5;">Peak Demand (kW)</th>
+                    <th style="background-color: #f3e5f5;">Energy Efficiency Rating</th>
+                    <th style="background-color: #f3e5f5;">Grid Independence Level (%)</th>
+                </tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </table>
+                </body>
+                </html>
+            

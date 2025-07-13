@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Registration Form</title>
+    <style>
+        @media print {
+            body { margin: 0; }
+            .no-print { display: none; }
+        }
+        
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 40px;
+            background-color: white;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border: 2px solid #333;
+            padding: 30px;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .header p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        .form-section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            background-color: #000;
+            color: white;
+            padding: 8px 15px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .form-row {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        
+        .form-row.single {
+            display: block;
+        }
+        
+        .form-field {
+            flex: 1;
+            margin-right: 20px;
+        }
+        
+        .form-field:last-child {
+            margin-right: 0;
+        }
+        
+        .field-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        
+        .field-value {
+            border-bottom: 2px solid #333;
+            padding: 8px 5px;
+            min-height: 20px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+        
+        .checkbox-field {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .checkbox {
+            width: 15px;
+            height: 15px;
+            border: 2px solid #333;
+            margin-right: 10px;
+            display: inline-block;
+            text-align: center;
+            line-height: 11px;
+            font-weight: bold;
+        }
+        
+        .checked {
+            background-color: #333;
+            color: white;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            border-top: 2px solid #333;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .print-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        
+        .print-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="text-align: center; margin-bottom: 20px;">
+        <button class="print-btn" onclick="window.print()">🖨️ Print as PDF</button>
+        <button class="print-btn" onclick="downloadAsPDF()" style="background-color: #28a745;">💾 Save as PDF</button>
+    </div>
+
+    <div class="form-container">
+        <div class="header">
+            <h1>User Registration Form</h1>
+            <p><strong>ESG & Water Management System</strong></p>
+            <p>Please fill out all required fields completely and legibly</p>
+            <p style="margin-top: 15px;"><strong>Form ID:</strong> USR-2023-1157 | <strong>Date:</strong> March 15, 2023</p>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title">PERSONAL INFORMATION</div>
+            
+            <div class="form-row">
+                <div class="form-field">
+                    <div class="field-label">Full Name (Last, First, Middle)</div>
+                    <div class="field-value">Pranesh, Joshi</div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-field">
+                    <div class="field-label">Email Address</div>
+                    <div class="field-value">pranesh@greentech.com</div>
+                </div>
+                <div class="form-field">
+                    <div class="field-label">Phone Number</div>
+                    <div class="field-value">+1-555-0125</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title">COMPANY INFORMATION</div>
+            
+            <div class="form-row">
+                <div class="form-field">
+                    <div class="field-label">Company Name</div>
+                    <div class="field-value">GreenTech Solutions Ltd</div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-field">
+                    <div class="field-label">Role / Designation</div>
+                    <div class="field-value">Chief Development Officer</div>
+                </div>
+                <div class="form-field">
+                    <div class="field-label">Industry Sector</div>
+                    <div class="field-value">Technology</div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-field">
+                    <div class="field-label">Country of Operation</div>
+                    <div class="field-value">United States</div>
+                </div>
+                <div class="form-field">
+                    <div class="field-label">Registration Date</div>
+                    <div class="field-value">March 15, 2024</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title">AUTHORIZATION & CONSENT</div>
+            
+            <div class="checkbox-field">
+                <span class="checkbox checked">✓</span>
+                <span>I authorize the collection and processing of my personal data for ESG reporting purposes</span>
+            </div>
+            
+            <div class="checkbox-field">
+                <span class="checkbox checked">✓</span>
+                <span>I confirm that the information provided is accurate and complete</span>
+            </div>
+            
+            <div class="checkbox-field">
+                <span class="checkbox checked">✓</span>
+                <span>I agree to receive ESG-related communications and updates</span>
+            </div>
+            
+            <div class="checkbox-field">
+                <span class="checkbox">□</span>
+                <span>I opt-in to participate in optional ESG benchmarking studies</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>For Office Use Only:</strong></p>
+            <p>Processed by: _________________ | Date: _________________ | ID Assigned: _________________</p>
+            <p style="margin-top: 15px; font-size: 10px;">
+                This form contains confidential information. Unauthorized disclosure is prohibited.<br>
+                ESG Water Management System v2.1 | Document Classification: Internal Use
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function downloadAsPDF() {
+            // Hide the buttons and print
+            const buttons = document.querySelectorAll('.no-print');
+            buttons.forEach(btn => btn.style.display = 'none');
+            
+            setTimeout(() => {
+                window.print();
+                setTimeout(() => {
+                    buttons.forEach(btn => btn.style.display = 'block');
+                }, 1000);
+            }, 100);
+        }
+    </script>
+</body>
+</html>
