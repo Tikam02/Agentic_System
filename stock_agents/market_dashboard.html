@@ -1,0 +1,914 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Indian Stock Market Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 30px; }
+        .timestamp { text-align: center; color: #666; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; background: #fafafa; }
+        .metric { font-size: 24px; font-weight: bold; margin: 10px 0; }
+        .bullish { color: #22c55e; }
+        .bearish { color: #ef4444; }
+        .neutral { color: #6b7280; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #f8f9fa; font-weight: bold; }
+        .positive { color: #22c55e; font-weight: bold; }
+        .negative { color: #ef4444; font-weight: bold; }
+        .news-item { margin: 10px 0; padding: 10px; background: white; border-left: 3px solid #059669; }
+        .chart-container { position: relative; height: 300px; }
+        .refresh-note { text-align: center; margin: 20px 0; padding: 10px; background: #e3f2fd; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 Indian Stock Market Dashboard</h1>
+            <div class="timestamp">Generated on: 2025-07-13 13:58:57</div>
+        </div>
+        
+        <div class="refresh-note">
+            <strong>Note:</strong> This is a static report. Run the Python script again to refresh data.
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>📊 Market Sentiment</h3>
+                <div id="sentiment-overview"></div>
+                <div class="chart-container">
+                    <canvas id="sentimentChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>📈 Market Depth</h3>
+                <div id="market-depth"></div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>🚀 Top Gainers</h3>
+                <div id="top-gainers"></div>
+            </div>
+            
+            <div class="card">
+                <h3>📉 Top Losers</h3>
+                <div id="top-losers"></div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>📰 Today's Market Analysis</h3>
+            <div id="market-summary"></div>
+        </div>
+        
+        <div class="card">
+            <h3>📢 Recent News</h3>
+            <div id="news-section"></div>
+        </div>
+    </div>
+
+    <script>
+        // Embedded data from analysis
+        const marketData = {
+        "csv_data": {
+                "agent": "CSV_Data_Agent",
+                "stock_symbols": [
+                        "20MICRONS.NS",
+                        "21STCENMGM.NS",
+                        "360ONE.NS",
+                        "GOLD360.NS",
+                        "SILVER360.NS",
+                        "3IINFOLTD.NS",
+                        "3MINDIA.NS",
+                        "3PLAND.NS",
+                        "5PAISA.NS",
+                        "63MOONS.NS",
+                        "ABINFRA.NS",
+                        "A2ZINFRA.NS",
+                        "AAATECH.NS",
+                        "AADHARHFC.NS",
+                        "AAKASH.NS",
+                        "AARON.NS",
+                        "AARTECH.NS",
+                        "AARTIDRUGS.NS",
+                        "AARTIIND.NS",
+                        "AARTIPHARM.NS",
+                        "AARTISURF.NS",
+                        "AARVI.NS",
+                        "AAVAS.NS",
+                        "ABAN.NS",
+                        "AFSL.NS",
+                        "ABB.NS",
+                        "ABBOTINDIA.NS",
+                        "ACC.NS",
+                        "ACCELYA.NS",
+                        "ACCURACY.NS",
+                        "ACEINTEG.NS",
+                        "ACMESOLAR.NS",
+                        "ACE.NS",
+                        "ACUTAAS.NS",
+                        "ADANIENSOL.NS",
+                        "ADANIENT.NS",
+                        "ADANIGREEN.NS",
+                        "ADANIPORTS.NS",
+                        "ADANIPOWER.NS",
+                        "ATGL.NS",
+                        "ADFFOODS.NS",
+                        "ABSLAMC.NS",
+                        "ABCAPITAL.NS",
+                        "ABFRL.NS",
+                        "BIRLAMONEY.NS",
+                        "ABREL.NS",
+                        "AVL.NS",
+                        "BSLGOLDETF.NS",
+                        "BSLNIFTY.NS",
+                        "ADOR.NS"
+                ],
+                "total_stocks": 50,
+                "csv_data": [
+                        {
+                                "Symbol": "20MICRONS.NS",
+                                "Sector": "Basic Materials",
+                                "Industry": "Other Industrial Metals & Mining",
+                                "Company_Name": "20 Microns Limited"
+                        },
+                        {
+                                "Symbol": "21STCENMGM.NS",
+                                "Sector": "Financial Services",
+                                "Industry": "Capital Markets",
+                                "Company_Name": "Twentyfirst Century Management Services Limited"
+                        },
+                        {
+                                "Symbol": "360ONE.NS",
+                                "Sector": "Financial Services",
+                                "Industry": "Asset Management",
+                                "Company_Name": "360 One Wam Limited"
+                        },
+                        {
+                                "Symbol": "GOLD360.NS",
+                                "Sector": "Unknown",
+                                "Industry": "Unknown",
+                                "Company_Name": "360 One Mutual Fund - 360 One Gold ETF"
+                        },
+                        {
+                                "Symbol": "SILVER360.NS",
+                                "Sector": "Unknown",
+                                "Industry": "Unknown",
+                                "Company_Name": "360 One Mutual Fund - 360 One Silver Etf"
+                        },
+                        {
+                                "Symbol": "3IINFOLTD.NS",
+                                "Sector": "Technology",
+                                "Industry": "Information Technology Services",
+                                "Company_Name": "3i Infotech Limited"
+                        },
+                        {
+                                "Symbol": "3MINDIA.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Conglomerates",
+                                "Company_Name": "3M India Limited"
+                        },
+                        {
+                                "Symbol": "3PLAND.NS",
+                                "Sector": "Unknown",
+                                "Industry": "Unknown",
+                                "Company_Name": "3P Land Holdings Ltd"
+                        },
+                        {
+                                "Symbol": "5PAISA.NS",
+                                "Sector": "Financial Services",
+                                "Industry": "Capital Markets",
+                                "Company_Name": "5paisa Capital Limited"
+                        },
+                        {
+                                "Symbol": "63MOONS.NS",
+                                "Sector": "Technology",
+                                "Industry": "Software - Application",
+                                "Company_Name": "63 moons technologies limited"
+                        },
+                        {
+                                "Symbol": "ABINFRA.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Engineering & Construction",
+                                "Company_Name": "A B INFRABUILD LIMITED"
+                        },
+                        {
+                                "Symbol": "A2ZINFRA.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Engineering & Construction",
+                                "Company_Name": "A2Z Infra Engineering Limited"
+                        },
+                        {
+                                "Symbol": "AAATECH.NS",
+                                "Sector": "Technology",
+                                "Industry": "Information Technology Services",
+                                "Company_Name": "AAA Technologies Limited"
+                        },
+                        {
+                                "Symbol": "AADHARHFC.NS",
+                                "Sector": "Financial Services",
+                                "Industry": "Mortgage Finance",
+                                "Company_Name": "AADHAR HOUSING FINANCE L"
+                        },
+                        {
+                                "Symbol": "AAKASH.NS",
+                                "Sector": "Energy",
+                                "Industry": "Oil & Gas Equipment & Services",
+                                "Company_Name": "Aakash Exploration Services Limited"
+                        },
+                        {
+                                "Symbol": "AARON.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Specialty Industrial Machinery",
+                                "Company_Name": "Aaron Industries Limited"
+                        },
+                        {
+                                "Symbol": "AARTECH.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Electrical Equipment & Parts",
+                                "Company_Name": "Aartech Solonics Limited"
+                        },
+                        {
+                                "Symbol": "AARTIDRUGS.NS",
+                                "Sector": "Healthcare",
+                                "Industry": "Drug Manufacturers - Specialty & Generic",
+                                "Company_Name": "Aarti Drugs Limited"
+                        },
+                        {
+                                "Symbol": "AARTIIND.NS",
+                                "Sector": "Basic Materials",
+                                "Industry": "Specialty Chemicals",
+                                "Company_Name": "Aarti Industries Limited"
+                        },
+                        {
+                                "Symbol": "AARTIPHARM.NS",
+                                "Sector": "Healthcare",
+                                "Industry": "Drug Manufacturers - Specialty & Generic",
+                                "Company_Name": "Aarti Pharmalabs Limited"
+                        },
+                        {
+                                "Symbol": "AARTISURF.NS",
+                                "Sector": "Basic Materials",
+                                "Industry": "Specialty Chemicals",
+                                "Company_Name": "Aarti Surfactants Limited"
+                        },
+                        {
+                                "Symbol": "AARVI.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Staffing & Employment Services",
+                                "Company_Name": "Aarvi Encon Limited"
+                        },
+                        {
+                                "Symbol": "AAVAS.NS",
+                                "Sector": "Financial Services",
+                                "Industry": "Mortgage Finance",
+                                "Company_Name": "Aavas Financiers Limited"
+                        },
+                        {
+                                "Symbol": "ABAN.NS",
+                                "Sector": "Energy",
+                                "Industry": "Oil & Gas Drilling",
+                                "Company_Name": "Aban Offshore Limited"
+                        },
+                        {
+                                "Symbol": "AFSL.NS",
+                                "Sector": "Financial Services",
+                                "Industry": "Capital Markets",
+                                "Company_Name": "Abans Financial Services Limited"
+                        },
+                        {
+                                "Symbol": "ABB.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Specialty Industrial Machinery",
+                                "Company_Name": "ABB India Limited"
+                        },
+                        {
+                                "Symbol": "ABBOTINDIA.NS",
+                                "Sector": "Healthcare",
+                                "Industry": "Drug Manufacturers - Specialty & Generic",
+                                "Company_Name": "Abbott India Limited"
+                        },
+                        {
+                                "Symbol": "ACC.NS",
+                                "Sector": "Basic Materials",
+                                "Industry": "Building Materials",
+                                "Company_Name": "ACC Limited"
+                        },
+                        {
+                                "Symbol": "ACCELYA.NS",
+                                "Sector": "Technology",
+                                "Industry": "Information Technology Services",
+                                "Company_Name": "Accelya Solutions India Limited"
+                        },
+                        {
+                                "Symbol": "ACCURACY.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Integrated Freight & Logistics",
+                                "Company_Name": "Accuracy Shipping Limited"
+                        },
+                        {
+                                "Symbol": "ACEINTEG.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Staffing & Employment Services",
+                                "Company_Name": "Ace Integrated Solutions Limited"
+                        },
+                        {
+                                "Symbol": "ACMESOLAR.NS",
+                                "Sector": "Utilities",
+                                "Industry": "Utilities - Renewable",
+                                "Company_Name": "ACME SOLAR HOLDINGS LTD"
+                        },
+                        {
+                                "Symbol": "ACE.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Farm & Heavy Construction Machinery",
+                                "Company_Name": "Action Construction Equipment Limited"
+                        },
+                        {
+                                "Symbol": "ACUTAAS.NS",
+                                "Sector": "Basic Materials",
+                                "Industry": "Specialty Chemicals",
+                                "Company_Name": "Acutaas Chemicals Limited"
+                        },
+                        {
+                                "Symbol": "ADANIENSOL.NS",
+                                "Sector": "Utilities",
+                                "Industry": "Utilities - Independent Power Producers",
+                                "Company_Name": "Adani Energy Solutions Limited"
+                        },
+                        {
+                                "Symbol": "ADANIENT.NS",
+                                "Sector": "Energy",
+                                "Industry": "Thermal Coal",
+                                "Company_Name": "Adani Enterprises Limited"
+                        },
+                        {
+                                "Symbol": "ADANIGREEN.NS",
+                                "Sector": "Utilities",
+                                "Industry": "Utilities - Renewable",
+                                "Company_Name": "Adani Green Energy Limited"
+                        },
+                        {
+                                "Symbol": "ADANIPORTS.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Marine Shipping",
+                                "Company_Name": "Adani Ports and Special Economic Zone Limited"
+                        },
+                        {
+                                "Symbol": "ADANIPOWER.NS",
+                                "Sector": "Utilities",
+                                "Industry": "Utilities - Independent Power Producers",
+                                "Company_Name": "Adani Power Limited"
+                        },
+                        {
+                                "Symbol": "ATGL.NS",
+                                "Sector": "Utilities",
+                                "Industry": "Utilities - Regulated Gas",
+                                "Company_Name": "Adani Total Gas Limited"
+                        },
+                        {
+                                "Symbol": "ADFFOODS.NS",
+                                "Sector": "Consumer Defensive",
+                                "Industry": "Packaged Foods",
+                                "Company_Name": "ADF Foods Limited"
+                        },
+                        {
+                                "Symbol": "ABSLAMC.NS",
+                                "Sector": "Financial Services",
+                                "Industry": "Asset Management",
+                                "Company_Name": "Aditya Birla Sun Life AMC Limited"
+                        },
+                        {
+                                "Symbol": "ABCAPITAL.NS",
+                                "Sector": "Financial Services",
+                                "Industry": "Financial Conglomerates",
+                                "Company_Name": "Aditya Birla Capital Limited"
+                        },
+                        {
+                                "Symbol": "ABFRL.NS",
+                                "Sector": "Consumer Cyclical",
+                                "Industry": "Apparel Manufacturing",
+                                "Company_Name": "Aditya Birla Fashion and Retail Limited"
+                        },
+                        {
+                                "Symbol": "BIRLAMONEY.NS",
+                                "Sector": "Financial Services",
+                                "Industry": "Capital Markets",
+                                "Company_Name": "Aditya Birla Money Limited"
+                        },
+                        {
+                                "Symbol": "ABREL.NS",
+                                "Sector": "Basic Materials",
+                                "Industry": "Paper & Paper Products",
+                                "Company_Name": "Aditya Birla Real Estate Limited"
+                        },
+                        {
+                                "Symbol": "AVL.NS",
+                                "Sector": "Consumer Cyclical",
+                                "Industry": "Specialty Retail",
+                                "Company_Name": "Aditya Vision Limited"
+                        },
+                        {
+                                "Symbol": "BSLGOLDETF.NS",
+                                "Sector": "Unknown",
+                                "Industry": "Unknown",
+                                "Company_Name": "Aditya Birla Sun Life Gold ETF"
+                        },
+                        {
+                                "Symbol": "BSLNIFTY.NS",
+                                "Sector": "Unknown",
+                                "Industry": "Unknown",
+                                "Company_Name": "Aditya Birla Sun Life Nifty 50 ETF"
+                        },
+                        {
+                                "Symbol": "ADOR.NS",
+                                "Sector": "Industrials",
+                                "Industry": "Specialty Industrial Machinery",
+                                "Company_Name": "Ador Welding Limited"
+                        }
+                ]
+        },
+        "price_data": {
+                "agent": "Price_Agent",
+                "top_gainers": [
+                        {
+                                "symbol": "ACMESOLAR",
+                                "daily_return": 2.8946734237358607,
+                                "price_change": 8.310028076171875,
+                                "current_price": 295.3900146484375,
+                                "volume_ratio": 1.1521885736045727,
+                                "volume": 11061972
+                        },
+                        {
+                                "symbol": "AAVAS",
+                                "daily_return": 2.803925812180741,
+                                "price_change": 54.7999267578125,
+                                "current_price": 2009.199951171875,
+                                "volume_ratio": 1.5660120543751466,
+                                "volume": 240078
+                        },
+                        {
+                                "symbol": "SILVER360",
+                                "daily_return": 2.7959582901709634,
+                                "price_change": 2.9899978637695312,
+                                "current_price": 109.93000030517578,
+                                "volume_ratio": 2.6433276951838334,
+                                "volume": 19795
+                        },
+                        {
+                                "symbol": "A2ZINFRA",
+                                "daily_return": 1.835791391117536,
+                                "price_change": 0.3599987030029297,
+                                "current_price": 19.969999313354492,
+                                "volume_ratio": 1.3266613244968901,
+                                "volume": 310146
+                        },
+                        {
+                                "symbol": "AARTIPHARM",
+                                "daily_return": 1.7168586060709812,
+                                "price_change": 15.6500244140625,
+                                "current_price": 927.2000122070312,
+                                "volume_ratio": 1.1638827143700774,
+                                "volume": 292346
+                        },
+                        {
+                                "symbol": "AFSL",
+                                "daily_return": 1.543197751169445,
+                                "price_change": 3.8600006103515625,
+                                "current_price": 253.99000549316406,
+                                "volume_ratio": 0.8818558855705959,
+                                "volume": 36005
+                        },
+                        {
+                                "symbol": "ABAN",
+                                "daily_return": 1.4176204079577426,
+                                "price_change": 0.7399978637695312,
+                                "current_price": 52.939998626708984,
+                                "volume_ratio": 1.0410137989298789,
+                                "volume": 92416
+                        },
+                        {
+                                "symbol": "ACEINTEG",
+                                "daily_return": 1.3560650473145808,
+                                "price_change": 0.35000038146972656,
+                                "current_price": 26.15999984741211,
+                                "volume_ratio": 0.4972630858706808,
+                                "volume": 1938
+                        },
+                        {
+                                "symbol": "ACUTAAS",
+                                "daily_return": 1.0756545377719418,
+                                "price_change": 12.2000732421875,
+                                "current_price": 1146.4000244140625,
+                                "volume_ratio": 1.349088380359294,
+                                "volume": 446850
+                        }
+                ],
+                "top_losers": [
+                        {
+                                "symbol": "BIRLAMONEY",
+                                "daily_return": -3.7599438244197314,
+                                "price_change": -7.2299957275390625,
+                                "current_price": 185.05999755859375,
+                                "volume_ratio": 1.5539237456728985,
+                                "volume": 170280
+                        },
+                        {
+                                "symbol": "5PAISA",
+                                "daily_return": -2.5387511415690067,
+                                "price_change": -10.399993896484375,
+                                "current_price": 399.25,
+                                "volume_ratio": 0.23805264797867307,
+                                "volume": 41255
+                        },
+                        {
+                                "symbol": "ABB",
+                                "daily_return": -2.3245948926783777,
+                                "price_change": -137.0,
+                                "current_price": 5756.5,
+                                "volume_ratio": 1.24756126276755,
+                                "volume": 280804
+                        },
+                        {
+                                "symbol": "AARTISURF",
+                                "daily_return": -2.1352886487639666,
+                                "price_change": -11.89996337890625,
+                                "current_price": 545.4000244140625,
+                                "volume_ratio": 1.775369003690037,
+                                "volume": 7698
+                        },
+                        {
+                                "symbol": "63MOONS",
+                                "daily_return": -1.9354883078714247,
+                                "price_change": -21.300048828125,
+                                "current_price": 1079.199951171875,
+                                "volume_ratio": 0.371741064948343,
+                                "volume": 235608
+                        },
+                        {
+                                "symbol": "ADANIENSOL",
+                                "daily_return": -1.9078615378366304,
+                                "price_change": -17.0,
+                                "current_price": 874.0499877929688,
+                                "volume_ratio": 0.5445752485758517,
+                                "volume": 989521
+                        },
+                        {
+                                "symbol": "20MICRONS",
+                                "daily_return": -1.73542328441193,
+                                "price_change": -3.9499969482421875,
+                                "current_price": 223.66000366210938,
+                                "volume_ratio": 0.6207301939781856,
+                                "volume": 91872
+                        },
+                        {
+                                "symbol": "AARTIIND",
+                                "daily_return": -1.5625,
+                                "price_change": -7.0,
+                                "current_price": 441.0,
+                                "volume_ratio": 1.0179516960422756,
+                                "volume": 1063711
+                        },
+                        {
+                                "symbol": "ACCELYA",
+                                "daily_return": -1.470271257207778,
+                                "price_change": -20.7999267578125,
+                                "current_price": 1393.9000244140625,
+                                "volume_ratio": 1.4089991842342535,
+                                "volume": 10939
+                        },
+                        {
+                                "symbol": "21STCENMGM",
+                                "daily_return": -1.4459779052483746,
+                                "price_change": -0.8899993896484375,
+                                "current_price": 60.65999984741211,
+                                "volume_ratio": 0.8105037866315443,
+                                "volume": 9846
+                        }
+                ],
+                "total_analyzed": 50,
+                "market_depth": {
+                        "advancing": 9,
+                        "declining": 18,
+                        "advance_decline_ratio": 0.5,
+                        "strong_gainers": 0,
+                        "strong_losers": 1
+                }
+        },
+        "news_data": {
+                "agent": "RSS_Agent",
+                "filtered_news": [
+                        {
+                                "title": "PC Jeweller vs Senco Gold vs Kalyan Jewellers: Which stock to buy ahead of Q1 results 2025?",
+                                "summary": "According to Gaurav Goel, Founder &amp;amp; Director at Fynocrat Technologies, all three companies have had a strong quarter, but for a risk-averse investor, Senco Gold stands out as the more balanced and dependable choice.",
+                                "category": "Market News"
+                        },
+                        {
+                                "title": "Crypto is booming again. Trump\u2019s return explains both the rise and the risk",
+                                "summary": "Since Donald Trump\u2019s return to power as the US president, crypto markets have surged, powered by regulatory shifts, institutional capital, and political entanglements. However, there are concerns over volatility, regulatory gaps, illicit activity, and phishing attacks.&amp;nbsp;",
+                                "category": "Market News"
+                        },
+                        {
+                                "title": "Stocks to buy under  \u20b9100: Sumeet Bagadia recommends three shares to buy on Monday - 14 July 2025",
+                                "summary": "Sumeet Bagadia has recommended three stocks to buy on Monday, July 14. The three stock picks by Bagadia are - Jaiprakash Power Ventures, NHPC, and Reliance Power.",
+                                "category": "Market News"
+                        },
+                        {
+                                "title": "Stocks to buy or sell: Dharmesh Shah of ICICI Sec suggests buying PFC shares tomorrow- 14 July 2025",
+                                "summary": "The Sensex and Nifty 50 declined for a third straight session, driven by significant selling in various sectors. Analysts highlight ongoing tariff uncertainties and a mixed global market. Dharmesh Shah suggests buying Power Finance Corporation shares, targeting  \u20b9478.",
+                                "category": "Market News"
+                        },
+                        {
+                                "title": "Singapore\u2019s First Home Launch Since New Curbs Sells Over 90%",
+                                "summary": "Singapore\u2019s first mass-market private residential project launched since new curbs were introduced saw the development almost sold out as homes were sold at lower-than-usual prices.",
+                                "category": "Market News"
+                        },
+                        {
+                                "title": "Market Resilience Challenged by Trump\u2019s Weekend Tariff Salvo",
+                                "summary": "Financial markets, which have shown increasing insensitivity to tariff threats from the US, will face a test at the Monday open after President Donald Trump declared a 30% rate for the European Union and Mexico effective Aug. 1.",
+                                "category": "Market News"
+                        },
+                        {
+                                "title": "Stock market this week: US-India trade deal, Q1 earnings, FIIs top triggers that may dictate Dalal Street",
+                                "summary": "Markets declined over the week, slipping more than one percent, mainly due to ongoing uncertainty over global tariffs and a weak beginning to the earnings season.",
+                                "category": "Market News"
+                        },
+                        {
+                                "title": "Q1 earnings, US-India trade talks and macro data to drive stock markets this week: Analysts",
+                                "summary": "Q1 earnings, US-India trade talks and macro data to drive stock markets this week: Analysts",
+                                "category": "Market News"
+                        },
+                        {
+                                "title": "Buy or sell: Ganesh Dongre of Anand Rathi recommends three stocks to buy on Monday - 14 July 2025",
+                                "summary": "Ganesh Dongre of Anand Rathi recommends three stocks to buy on Monday - SBI, SBI Life and Cholamandalam Investment and Fin Co.",
+                                "category": "Market News"
+                        },
+                        {
+                                "title": "Mysterious Option Trades Put Spotlight on Key Indian Stock Index",
+                                "summary": "As India\u2019s securities regulator ramps up scrutiny of the options market, some investors are pointing to mysterious moves in contracts tied to the nation\u2019s benchmark index as evidence of questionable trading activity.",
+                                "category": "Market News"
+                        }
+                ],
+                "news_count": 10
+        },
+        "sentiment_data": {
+                "agent": "Sentiment_Agent",
+                "stock_sentiments": [
+                        {
+                                "symbol": "ACMESOLAR",
+                                "sentiment": "bullish",
+                                "confidence": 0.28946734237358607,
+                                "reason": "2.9% movement"
+                        },
+                        {
+                                "symbol": "AAVAS",
+                                "sentiment": "bullish",
+                                "confidence": 0.2803925812180741,
+                                "reason": "2.8% movement"
+                        },
+                        {
+                                "symbol": "SILVER360",
+                                "sentiment": "bullish",
+                                "confidence": 0.27959582901709634,
+                                "reason": "2.8% movement"
+                        },
+                        {
+                                "symbol": "A2ZINFRA",
+                                "sentiment": "neutral",
+                                "confidence": 0.1835791391117536,
+                                "reason": "1.8% movement"
+                        },
+                        {
+                                "symbol": "AARTIPHARM",
+                                "sentiment": "neutral",
+                                "confidence": 0.17168586060709812,
+                                "reason": "1.7% movement"
+                        },
+                        {
+                                "symbol": "AFSL",
+                                "sentiment": "neutral",
+                                "confidence": 0.1543197751169445,
+                                "reason": "1.5% movement"
+                        },
+                        {
+                                "symbol": "ABAN",
+                                "sentiment": "neutral",
+                                "confidence": 0.14176204079577426,
+                                "reason": "1.4% movement"
+                        },
+                        {
+                                "symbol": "ACEINTEG",
+                                "sentiment": "neutral",
+                                "confidence": 0.13560650473145808,
+                                "reason": "1.4% movement"
+                        },
+                        {
+                                "symbol": "ACUTAAS",
+                                "sentiment": "neutral",
+                                "confidence": 0.10756545377719418,
+                                "reason": "1.1% movement"
+                        },
+                        {
+                                "symbol": "BIRLAMONEY",
+                                "sentiment": "bearish",
+                                "confidence": 0.37599438244197314,
+                                "reason": "-3.8% movement"
+                        },
+                        {
+                                "symbol": "5PAISA",
+                                "sentiment": "bearish",
+                                "confidence": 0.25387511415690067,
+                                "reason": "-2.5% movement"
+                        },
+                        {
+                                "symbol": "ABB",
+                                "sentiment": "bearish",
+                                "confidence": 0.23245948926783777,
+                                "reason": "-2.3% movement"
+                        },
+                        {
+                                "symbol": "AARTISURF",
+                                "sentiment": "bearish",
+                                "confidence": 0.21352886487639666,
+                                "reason": "-2.1% movement"
+                        },
+                        {
+                                "symbol": "63MOONS",
+                                "sentiment": "neutral",
+                                "confidence": 0.19354883078714247,
+                                "reason": "-1.9% movement"
+                        },
+                        {
+                                "symbol": "ADANIENSOL",
+                                "sentiment": "neutral",
+                                "confidence": 0.19078615378366304,
+                                "reason": "-1.9% movement"
+                        },
+                        {
+                                "symbol": "20MICRONS",
+                                "sentiment": "neutral",
+                                "confidence": 0.173542328441193,
+                                "reason": "-1.7% movement"
+                        },
+                        {
+                                "symbol": "AARTIIND",
+                                "sentiment": "neutral",
+                                "confidence": 0.15625,
+                                "reason": "-1.6% movement"
+                        },
+                        {
+                                "symbol": "ACCELYA",
+                                "sentiment": "neutral",
+                                "confidence": 0.1470271257207778,
+                                "reason": "-1.5% movement"
+                        },
+                        {
+                                "symbol": "21STCENMGM",
+                                "sentiment": "neutral",
+                                "confidence": 0.14459779052483746,
+                                "reason": "-1.4% movement"
+                        }
+                ],
+                "market_sentiment": {
+                        "overall": "neutral",
+                        "confidence": 0.21052631578947367,
+                        "bullish_pct": 15.789473684210526,
+                        "bearish_pct": 21.052631578947366,
+                        "neutral_pct": 63.1578947368421
+                },
+                "bullish_count": 3,
+                "bearish_count": 4,
+                "neutral_count": 12
+        },
+        "market_summary": "\n        <h4>Market Overview - 2025-07-13</h4>\n        <p><strong>Market Sentiment:</strong> NEUTRAL</p>\n        <p><strong>Active Stocks:</strong> 9 gainers, 10 losers</p>\n        <p><strong>Sentiment Distribution:</strong> \n           3 bullish, \n           4 bearish, \n           12 neutral</p>\n        <p><strong>Top Gainer:</strong> ACMESOLAR (+2.89%)</p><p><strong>Top Loser:</strong> BIRLAMONEY (-3.76%)</p>",
+        "timestamp": "2025-07-13T13:58:57.186895"
+};
+        
+        function initializeDashboard() {
+            updateSentimentOverview();
+            updateSentimentChart();
+            updateMarketDepth();
+            updateMoversTable('top-gainers', marketData.price_data?.top_gainers || []);
+            updateMoversTable('top-losers', marketData.price_data?.top_losers || []);
+            updateMarketSummary();
+            updateNewsSection();
+        }
+        
+        function updateSentimentOverview() {
+            const sentiment = marketData.sentiment_data?.market_sentiment || {};
+            document.getElementById('sentiment-overview').innerHTML = `
+                <div class="metric ${sentiment.overall || 'neutral'}">${(sentiment.overall || 'NEUTRAL').toUpperCase()}</div>
+                <p>Confidence: ${((sentiment.confidence || 0) * 100).toFixed(1)}%</p>
+                <p>Bullish: ${sentiment.bullish_pct?.toFixed(1) || 0}% | 
+                   Bearish: ${sentiment.bearish_pct?.toFixed(1) || 0}% | 
+                   Neutral: ${sentiment.neutral_pct?.toFixed(1) || 0}%</p>
+            `;
+        }
+        
+        function updateSentimentChart() {
+            const ctx = document.getElementById('sentimentChart').getContext('2d');
+            const sentimentData = marketData.sentiment_data || {};
+            
+            const bullishCount = sentimentData.bullish_count || 0;
+            const bearishCount = sentimentData.bearish_count || 0;
+            const neutralCount = sentimentData.neutral_count || 0;
+            
+            if (bullishCount > 0 || bearishCount > 0 || neutralCount > 0) {
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Bullish', 'Bearish', 'Neutral'],
+                        datasets: [{
+                            data: [bullishCount, bearishCount, neutralCount],
+                            backgroundColor: ['#22c55e', '#ef4444', '#6b7280']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        function updateMarketDepth() {
+            const depth = marketData.price_data?.market_depth || {};
+            document.getElementById('market-depth').innerHTML = `
+                <p><strong>Advancing:</strong> ${depth.advancing || 0}</p>
+                <p><strong>Declining:</strong> ${depth.declining || 0}</p>
+                <p><strong>A/D Ratio:</strong> ${(depth.advance_decline_ratio || 0).toFixed(2)}</p>
+                <p><strong>Strong Gainers (>3%):</strong> ${depth.strong_gainers || 0}</p>
+                <p><strong>Strong Losers (<-3%):</strong> ${depth.strong_losers || 0}</p>
+                <p><strong>Total Analyzed:</strong> ${marketData.price_data?.total_analyzed || 0} stocks</p>
+            `;
+        }
+        
+        function updateMoversTable(elementId, movers) {
+            if (!Array.isArray(movers) || movers.length === 0) {
+                document.getElementById(elementId).innerHTML = '<p>No significant movers found</p>';
+                return;
+            }
+            
+            const html = `
+                <table>
+                    <thead>
+                        <tr><th>Symbol</th><th>Change %</th><th>Price (Rs)</th><th>Volume Ratio</th></tr>
+                    </thead>
+                    <tbody>
+                        ${movers.slice(0, 10).map(stock => `
+                            <tr>
+                                <td>${stock.symbol || 'N/A'}</td>
+                                <td class="${(stock.daily_return || 0) > 0 ? 'positive' : 'negative'}">
+                                    ${(stock.daily_return || 0).toFixed(2)}%
+                                </td>
+                                <td>Rs ${(stock.current_price || 0).toFixed(2)}</td>
+                                <td>${(stock.volume_ratio || 0).toFixed(2)}x</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            document.getElementById(elementId).innerHTML = html;
+        }
+        
+        function updateMarketSummary() {
+            document.getElementById('market-summary').innerHTML = 
+                marketData.market_summary || 'No analysis available';
+        }
+        
+        function updateNewsSection() {
+            const news = marketData.news_data?.filtered_news || [];
+            if (news.length === 0) {
+                document.getElementById('news-section').innerHTML = '<p>No recent news available</p>';
+                return;
+            }
+            
+            const html = news.map(article => `
+                <div class="news-item">
+                    <strong>${article.title || 'No title'}</strong>
+                    <p>${article.summary || 'No summary available'}</p>
+                    <small>Category: ${article.category || 'General'}</small>
+                </div>
+            `).join('');
+            
+            document.getElementById('news-section').innerHTML = html;
+        }
+        
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', initializeDashboard);
+    </script>
+</body>
+</html>
+        

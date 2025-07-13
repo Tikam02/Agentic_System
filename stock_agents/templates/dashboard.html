@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Indian Stock Market Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
+        .metric { font-size: 24px; font-weight: bold; margin: 10px 0; }
+        .bullish { color: #22c55e; }
+        .bearish { color: #ef4444; }
+        .neutral { color: #6b7280; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        .positive { color: #22c55e; }
+        .negative { color: #ef4444; }
+        .status-indicator { 
+            padding: 10px; 
+            border-radius: 4px; 
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .status-idle { background: #f3f4f6; color: #6b7280; }
+        .status-running { background: #fef3c7; color: #d97706; }
+        .status-complete { background: #d1fae5; color: #059669; }
+        .status-error { background: #fef2f2; color: #dc2626; }
+        .refresh-btn {
+            margin: 20px 0; 
+            padding: 10px 20px; 
+            background: #059669; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer;
+        }
+        .refresh-btn:hover { background: #047857; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Indian Stock Market Dashboard</h1>
+        
+        <div id="status-indicator" class="status-indicator status-idle">
+            System Status: Idle
+        </div>
+        
+        <div id="last-updated"></div>
+        
+        <button onclick="refreshData()" class="refresh-btn">
+            Refresh Data
+        </button>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>Market Sentiment</h3>
+                <div id="sentiment-overview">Waiting for analysis...</div>
+                <canvas id="sentimentChart" width="400" height="200"></canvas>
+            </div>
+            
+            <div class="card">
+                <h3>Market Depth</h3>
+                <div id="market-depth">Waiting for analysis...</div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>Top Gainers</h3>
+                <div id="top-gainers">Waiting for analysis...</div>
+            </div>
+            
+            <div class="card">
+                <h3>Top Losers</h3>
+                <div id="top-losers">Waiting for analysis...</div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>Today's Market Analysis</h3>
+            <div id="market-summary">Waiting for analysis...</div>
+        </div>
+    </div>
+
+    <script>
+        let sentimentChart;
+        let lastDataTimestamp = null;
+        
+        function updateStatusIndicator(status) {
+            const indicator = document.getElementById('status-indicator');
+            indicator.className = `status-indicator status-${status}`;
+            
+            const statusText = {
+                'idle': 'System Status: Idle',
+                'running': 'Analysis Status: Running...',
+                'complete': 'Analysis Status: Complete',
+                'error': 'Analysis Status: Error'
+            };
+            
+            indicator.textContent = statusText[status] || 'Unknown Status';
+        }
+        
+        async function loadDataOnce() {
+            try {
+                const response = await fetch('/api/market-data');
+                const result = await response.json();
+                
+                const status = result.status || 'idle';
+                updateStatusIndicator(status);
+                
+                // Only update if data has changed
+                if (status === 'complete' && result.data && result.last_update !== lastDataTimestamp) {
+                    lastDataTimestamp = result.last_update;
+                    updateDashboard(result.data);
+                    
+                    if (result.last_update) {
+                        document.getElementById('last-updated').innerHTML = 
+                            `Last updated: ${new Date(result.last_update).toLocaleString()}`;
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                updateStatusIndicator('error');
+            }
+        }
+        
+        function updateDashboard(data) {
+            try {
+                if (!data || typeof data !== 'object') {
+                    return;
+                }
+                
+                // Update sentiment overview
+                const sentiment = data.sentiment_data?.market_sentiment || {};
+                document.getElementById('sentiment-overview').innerHTML = `
+                    <div class="metric ${sentiment.overall || 'neutral'}">${(sentiment.overall || 'NEUTRAL').toUpperCase()}</div>
+                    <p>Confidence: ${((sentiment.confidence || 0) * 100).toFixed(1)}%</p>
+                `;
+                
+                // Update sentiment chart ONLY ONCE
+                updateSentimentChart(data.sentiment_data || {});
+                
+                // Update market depth
+                const depth = data.price_data?.market_depth || {};
+                document.getElementById('market-depth').innerHTML = `
+                    <p><strong>Advancing:</strong> ${depth.advancing || 0}</p>
+                    <p><strong>Declining:</strong> ${depth.declining || 0}</p>
+                    <p><strong>A/D Ratio:</strong> ${(depth.advance_decline_ratio || 0).toFixed(2)}</p>
+                    <p><strong>Strong Gainers:</strong> ${depth.strong_gainers || 0}</p>
+                    <p><strong>Strong Losers:</strong> ${depth.strong_losers || 0}</p>
+                `;
+                
+                // Update tables
+                updateMoversTable('top-gainers', data.price_data?.top_gainers || []);
+                updateMoversTable('top-losers', data.price_data?.top_losers || []);
+                
+                // Update market summary
+                document.getElementById('market-summary').innerHTML = 
+                    data.market_summary || 'No analysis available';
+                    
+            } catch (error) {
+                console.error('Error updating dashboard:', error);
+            }
+        }
+        
+        function updateSentimentChart(sentimentData) {
+            try {
+                const ctx = document.getElementById('sentimentChart').getContext('2d');
+                
+                const bullishCount = sentimentData.bullish_count || 0;
+                const bearishCount = sentimentData.bearish_count || 0;
+                const neutralCount = sentimentData.neutral_count || 0;
+                
+                // Destroy existing chart
+                if (sentimentChart) {
+                    sentimentChart.destroy();
+                    sentimentChart = null;
+                }
+                
+                // Create new chart only if there's data
+                if (bullishCount > 0 || bearishCount > 0 || neutralCount > 0) {
+                    sentimentChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Bullish', 'Bearish', 'Neutral'],
+                            datasets: [{
+                                data: [bullishCount, bearishCount, neutralCount],
+                                backgroundColor: ['#22c55e', '#ef4444', '#6b7280']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            animation: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error updating sentiment chart:', error);
+            }
+        }
+        
+        function updateMoversTable(elementId, movers) {
+            try {
+                if (!Array.isArray(movers) || movers.length === 0) {
+                    document.getElementById(elementId).innerHTML = '<p>No movers found</p>';
+                    return;
+                }
+                
+                const html = `
+                    <table>
+                        <thead>
+                            <tr><th>Symbol</th><th>Change %</th><th>Price</th></tr>
+                        </thead>
+                        <tbody>
+                            ${movers.slice(0, 5).map(stock => `
+                                <tr>
+                                    <td>${stock.symbol || 'N/A'}</td>
+                                    <td class="${(stock.daily_return || 0) > 0 ? 'positive' : 'negative'}">
+                                        ${(stock.daily_return || 0).toFixed(2)}%
+                                    </td>
+                                    <td>Rs${(stock.current_price || 0).toFixed(2)}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                document.getElementById(elementId).innerHTML = html;
+            } catch (error) {
+                console.error('Error updating movers table:', error);
+                document.getElementById(elementId).innerHTML = '<p>Error loading data</p>';
+            }
+        }
+        
+        function refreshData() {
+            loadDataOnce();
+        }
+        
+        // Load data once on page load - NO FREQUENT POLLING
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDataOnce();
+        });
+        
+        // Manual refresh every 2 minutes (much less frequent)
+        setInterval(loadDataOnce, 120000);
+    </script>
+</body>
+</html>
+        
